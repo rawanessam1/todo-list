@@ -8,12 +8,12 @@ import facebook from '../../assets/Facebook-icon.png';
 
 function SignIn() {
   return (
-    <div className="flex flex-row w-full h-screen justify-center items-center gap-7 p-14">
-      <div className="leftSide rounded-[40px]">
-        <img src={mainImage} alt="main image" className="object-cover"/>
-      </div>
+  <div className="container mx-auto flex h-screen gap-8 pt-11 pb-11">
+      <div className="leftSide flex-1">
+          <img src={mainImage} alt="main image"className="w-full h-full rounded-[40px]"/>
+        </div>
 
-      <div className=" rightSide shadow-xl rounded-[40px] bg-mainWhite p-40 flex flex-col justify-center items-center">
+        <div className="rightSide shadow-xl rounded-[40px] bg-mainWhite flex flex-col items-center justify-center flex-1">
           <div>
             <SignInForm />
           </div>
