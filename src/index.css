@@ -4,6 +4,7 @@
   --color-mainWhite: #FFF9F9;
   --color-green: #76DE37;
   --color-lightGray: #EBEBEB;
+  --color-lightGray2: #F4F4F4;
   --font-oswald: 'Oswald', sans-serif;
   --font-Inder: 'Inder', sans-serif;
   --radius-40: 40px;
@@ -12,4 +13,4 @@
 
 body{
     background-color: #D9D9D9;
-}
+} 
