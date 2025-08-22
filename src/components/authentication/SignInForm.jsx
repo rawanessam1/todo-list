@@ -17,21 +17,21 @@ const SignInForm = () => (
     <h1 className='font-oswald font-extrabold text-4xl pb-3'>Sign in</h1>
 
     <Form.Item
-      name="username"
+      name="username" 
       rules={[{ required: true, message: 'Please input your username!' }] }
     >
-      <Input placeholder="mail.example@mail.com" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60 w-[301px] h-8"/>
+      <Input placeholder="mail.example@mail.com" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60"/>
     </Form.Item>
 
     <Form.Item
       name="password"
       rules={[{ required: true, message: 'Please input your password!' }]}
     >
-      <Input.Password placeholder="************" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60 w-[301px] h-8"/>
+      <Input.Password placeholder="************" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60 "/>
     </Form.Item>
 
     <Form.Item>
-      <Button htmlType="submit" type="ghost" className="font-Inder !rounded-lg !border-none !bg-green !w-[301px] !h-10 hover:text-black">
+      <Button htmlType="submit" type="ghost" className="!font-Inder !rounded-lg !border-none !bg-green hover:text-black w-full max-w-[301px]">
        Sign In
       </Button>
     </Form.Item>

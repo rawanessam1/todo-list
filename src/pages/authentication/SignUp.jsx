@@ -9,11 +9,11 @@ function SignUp() {
   return (
   <div className="container mx-auto flex h-screen gap-8 pt-11 pb-11">
       <div className="leftSide flex-1">
-          <img src={mainImage} alt="main image"className="w-full h-full rounded-[40px]"/>
+          <img src={mainImage} alt="main image"className="w-full h-full rounded-40"/>
       </div>
 
-      <div className="rightSide shadow-xl rounded-[40px] bg-mainWhite flex flex-col items-center justify-center flex-1">
-          <div>
+      <div className="rightSide shadow-xl rounded-40 bg-mainWhite flex flex-col items-center justify-center flex-1">
+          <div className="w-full max-w-form">
             <SignUpForm />
           </div>
           <p className="font-Inder text-center">
