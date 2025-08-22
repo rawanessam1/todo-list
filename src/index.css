@@ -6,6 +6,8 @@
   --color-lightGray: #EBEBEB;
   --font-oswald: 'Oswald', sans-serif;
   --font-Inder: 'Inder', sans-serif;
+  --radius-40: 40px;
+  --max-width-form: 301px;
 }
 
 body{
