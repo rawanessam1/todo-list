@@ -54,7 +54,7 @@ const SidebarMenu = () => {
         </div>
       </div>
 
-      <div className="space-y-3 text-lg mt-12 text-black/70">
+      <div className="space-y-3 mt-12 text-black/70">
         <div className="flex gap-2"><RiMenu5Fill /> Settings</div>
         <div className="flex gap-2"><FiLogOut /> Sign Out</div>
       </div>

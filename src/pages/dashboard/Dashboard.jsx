@@ -5,9 +5,10 @@ import MainLayout from "../../components/layout/MainLayout";  // if Dashboard is
 const Dashboard = () => {
   return (
     <MainLayout bgColor="bg-lightGray2">
-      <div className="flex flex-col justify-center items-center text-center">
-        <h1 className="text-3xl font-bold mb-4">Welcome to ToDoPy</h1>
-        <p className="text-gray-600 max-w-xl mb-8">
+      <div className="flex justify-center items-center h-full">
+        <div className='flex flex-col justify-center items-center text-center gap-14'>
+        <h1 className="text-4xl font-bold mb-4 font-oswald">Welcome to ToDoPy</h1>
+        <p className="max-w-lg mb-8">
           A to-do app is a simple, user-friendly digital tool designed to help individuals
           and teams organize tasks and manage their daily activities efficiently.
           Users can create, edit, and prioritize tasks, set deadlines or reminders,
@@ -17,10 +18,11 @@ const Dashboard = () => {
         </p>
         <Button
           type="primary"
-          className="!bg-green-400 !border-none hover:!bg-green-500 text-black font-semibold px-6 py-2 rounded-lg"
+          className="!bg-green !px-14 !py-4.5 !rounded-xl !font-oswald !text-black !text-2xl"
         >
           Go to tasks
         </Button>
+      </div>
       </div>
     </MainLayout>
   );
