@@ -17,7 +17,7 @@ function SignIn() {
           <div className="w-full max-w-form">
             <SignInForm />
           </div>
-          <div className="flex justify-between gap-24 ">
+          <div className="flex justify-between gap-24">
             <Button className="!font-Inder !bg-lightGray !rounded-lg " type="ghost"><FcGoogle /> Google</Button>
             <Button className="!font-Inder !bg-lightGray !rounded-lg" type="ghost"><FaFacebook className="text-blue-800" /> Facebook</Button>
           </div>
