@@ -4,6 +4,7 @@ import SignInForm from '../../components/authentication/SignInForm';
 import mainImage from '../../assets/Rectangle-1.png';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+import { Link } from "react-router";
 
 
 function SignIn() {
@@ -18,11 +19,11 @@ function SignIn() {
             <SignInForm />
           </div>
           <div className="flex justify-between gap-24">
-            <Button className="!font-Inder !bg-lightGray !rounded-lg " type="ghost"><FcGoogle /> Google</Button>
+            <Button className="!font-Inder !bg-lightGray !rounded-lg " type="ghost"><FcGoogle /> </Button>
             <Button className="!font-Inder !bg-lightGray !rounded-lg" type="ghost"><FaFacebook className="text-blue-800" /> Facebook</Button>
           </div>
           <p className="!font-Inder text-center p-6">
-              Don't have an account? <a href='#'>Sign up</a>
+              Don't have an account? <Link to="/signup">Sign up</Link>
           </p>
       </div>
     </div>

@@ -8,6 +8,7 @@ import { FaStickyNote } from "react-icons/fa";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { RiMenu5Fill } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
+import { Link } from "react-router";
 
 const SidebarMenu = () => {
   return (
@@ -22,15 +23,21 @@ const SidebarMenu = () => {
           <h3 className="font-semibold mb-3 font-oswald">Tasks</h3>
           <ul className="space-y-3 justify-end space-x-4">                    {/* for space between children */}
             <li className="flex justify-between pl-6">
-              <div className="flex gap-2"><MdKeyboardDoubleArrowRight /><span> Upcoming</span></div>
+              <Link to="/upcoming" className="flex justify-between w-full">
+              <div className="flex gap-2"> <MdKeyboardDoubleArrowRight /> <span>Upcoming</span></div>
               <span className="bg-lightGray text-xs p-2 rounded-full">15+</span>
+             </Link>
             </li>
             <li className="flex justify-between pl-6">
-              <div className="flex gap-2"><TfiMenuAlt /><span> Today</span></div>
+              <Link to="/today" className="flex justify-between w-full">
+              <div className="flex gap-2"><TfiMenuAlt /><span>Today</span></div>
               <span className="bg-lightGray text-xs p-2 rounded-full">8</span>
+             </Link>
             </li>
             <li className="pl-6">
-                <div className="flex gap-2"><LuCalendar /> <span> Calendar</span></div>
+              <Link to="/calendar" className="flex gap-2">
+              <LuCalendar /><span>Calendar</span>
+              </Link>
             </li>
             <li className="pl-6">
                 <div className="flex gap-2"><FaStickyNote /> <span>Sticky Wall</span></div>
