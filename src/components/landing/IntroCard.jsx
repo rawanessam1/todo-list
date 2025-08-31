@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 function IntroCard() {
     let navigate = useNavigate();
+
     return(
         <div>
         <h1 className='font-oswald font-extrabold text-4xl pb-3 text-center'>ToDo Py</h1>
