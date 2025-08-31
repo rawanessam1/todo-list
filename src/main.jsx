@@ -6,6 +6,6 @@ import SignUp from './pages/dashboard/Dashboard.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SignUp />
+    <Landing />
   </StrictMode>
 )
