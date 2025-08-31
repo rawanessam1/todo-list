@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Form, Button } from "antd";
 import SignUpForm from '../../components/authentication/SignUpForm';
 import mainImage from '../../assets/Rectangle-1.png';
-
-
+import { Link } from "react-router";
 
 function SignUp() {
   return (
@@ -17,7 +16,7 @@ function SignUp() {
             <SignUpForm />
           </div>
           <p className="font-Inder text-center">
-              Already have an account? <a href='#'>Sign In</a>
+              Already have an account? <Link to="/signin">Sign In</Link>
           </p>
       </div>
     </div>

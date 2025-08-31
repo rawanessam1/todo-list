@@ -1,6 +1,10 @@
 import { Button } from 'antd';
+import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 function IntroCard() {
+    let navigate = useNavigate();
+
     return(
         <div>
         <h1 className='font-oswald font-extrabold text-4xl pb-3 text-center'>ToDo Py</h1>
@@ -9,8 +13,8 @@ function IntroCard() {
             <p>A todo list app is a digital task management tool designed to help users organize and prioritize
                 their daily activities and responsibilities.</p>
         </div>
-        <Button className="font-Inder !rounded-lg !border-none !bg-green !w-96 !h-10" type="ghost"> Get Started</Button>
-        <p className="font-Inder text-center p-6">Already have an account? <a href='#'>Sign ip</a></p>
+        <Button className="font-Inder !rounded-lg !border-none !bg-green !w-96 !h-10" type="ghost" onClick={() => { navigate("/dashboard"); }}> Get Started</Button>
+        <p className="font-Inder text-center p-6">Already have an account? <Link to="/signin">Sign in</Link></p>
         </div>
     )
 }
