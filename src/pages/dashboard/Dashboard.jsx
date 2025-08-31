@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button } from "antd";
-import MainLayout from "../../components/layout/MainLayout";  // if Dashboard is nested deeper
+import MainLayout from "../../components/layout/MainLayout";
 
 const Dashboard = () => {
   return (
