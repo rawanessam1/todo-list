@@ -20,21 +20,21 @@ const AuthForm = () => (
       name="firstname"
       rules={[{ required: true, message: 'Please enter your First Name!' }] }
     >
-      <Input placeholder="First Name" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60 w-[301px] h-8"/>
+      <Input placeholder="First Name" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60"/>
     </Form.Item>
 
     <Form.Item
       name="lastname"
       rules={[{ required: true, message: 'Please enter your Last Name!' }] }
     >
-      <Input placeholder="Last Name" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60 w-[301px] h-8"/>
+      <Input placeholder="Last Name" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60"/>
     </Form.Item>
 
     <Form.Item
       name="email"
       rules={[{ required: true, message: 'Please enter your Email!' }] }
     >
-      <Input placeholder="E-mail address" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60 w-[301px] h-8"/>
+      <Input placeholder="E-mail address" className="!border-black !rounded-lg !bg-mainWhite !placeholder-black/60"/>
     </Form.Item>
 
 
@@ -42,7 +42,7 @@ const AuthForm = () => (
       name="password"
       rules={[{ required: true, message: 'Please enter your password!' }]}
     >
-      <Input.Password placeholder="Password" className="!border-black !rounded-lg !bg-mainWhite w-[301px] h-8"/>
+      <Input.Password placeholder="Password" className="!border-black !rounded-lg !bg-mainWhite"/>
     </Form.Item>
 
     <Form.Item
@@ -65,7 +65,7 @@ const AuthForm = () => (
 
 
     <Form.Item>
-      <Button htmlType="submit" type="ghost" className="font-Inder !rounded-lg !border-none !bg-green !w-[301px] !h-10 !hover:text-black">
+      <Button htmlType="submit" type="ghost" className="!font-Inder !rounded-lg !border-none !bg-green !hover:text-black w-full max-w-form">
        Sign Up
       </Button>
     </Form.Item>
