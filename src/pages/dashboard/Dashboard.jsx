@@ -1,8 +1,18 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { Button } from "antd";
 import MainLayout from "../../components/layout/MainLayout";
+import { useNavigate } from "react-router";
 
 const Dashboard = () => {
+  // to navigate to sign in if user is not logged in
+   const navigate = useNavigate();
+   useEffect(() => {
+    const username = localStorage.getItem("username");
+    if (!username) {
+      navigate("/signin");
+    }
+  }, [navigate]);
+
   return (
     <MainLayout bgColor="bg-lightGray2">
       <div className="flex justify-center items-center h-full">

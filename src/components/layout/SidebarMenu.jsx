@@ -1,5 +1,5 @@
-import React from "react";
-import { Input } from "antd";
+import { useEffect, useState } from "react";
+import { Input, message, AutoComplete, Dropdown } from "antd";
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
@@ -8,17 +8,75 @@ import { FaStickyNote } from "react-icons/fa";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { RiMenu5Fill } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router";
+import { MdLogin } from "react-icons/md";
+import { FaUserPlus } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router";
 
 const SidebarMenu = () => {
+  const navigate = useNavigate();
+
+  // for AutoComplete search
+  const pages = ["Today", "Upcoming", "Calendar"];
+  const [options, setOptions] = useState([]);
+  const handleSearch = (value) => {
+    const filtered = pages
+      .filter(page => page.toLowerCase().includes(value.toLowerCase()))
+      .map(page => ({ label: page, value: page }));
+      setOptions(filtered);
+  };
+  const handleSelect = (value) => {
+    const query = value.toLowerCase();
+    if(query === "today") navigate("/today");
+    else if(query === "upcoming") navigate("/upcoming");
+    else if(query === "calendar") navigate("/calendar");
+  };
+
+  /* for settings */
+   const settingsMenu = [
+  { key: "1", label:( <div className="flex items-center gap-2 text-sm"> <MdLogin /> Login </div> ), onClick: () => navigate("/signin") },
+  { key: "2", label:(<div className="flex items-center gap-2 text-sm"><FaUserPlus /> Sign Up</div> ), onClick: () => navigate("/signup") },
+  ];
+
+  /* to get username from localStorage */
+  const [username, setUsername] = useState("");
+  useEffect(() => {
+    const storedName = localStorage.getItem("username");
+    if (storedName) {
+      setUsername(storedName);
+    }
+  }, []);
+
+  /* this is for removing hello, user when clicking sign out */
+  const [messageApi, contextHolder] = message.useMessage();
+  const info = () => {
+    messageApi.success('Signing out...');
+    setTimeout(() => {
+    localStorage.removeItem("username");
+    setUsername("");
+    navigate("/signin", { replace: true });
+  }, 3000);
+  };
+
+
   return (
     <div className="w-80 bg-lightGray2 shadow-md rounded-40 p-12 flex flex-col justify-between">
       <div>
-        <div className="flex justify-between items-center mb-4">
+        <p className="font-bold">
+        {username && (
+          <>
+          Hello, <span className="text-green">{username}</span>
+          </>
+        )}
+        </p>
+        <div className="flex justify-between items-center">
           <h2 className="text-4xl font-bold font-oswald">Menu</h2>
           <MenuOutlined className="text-xl" />
         </div>
-        <Input prefix={<SearchOutlined />} placeholder="Search..." className="!bg-lightGray !rounded-full mb-6 !border-0 focus:!outline-none focus:!shadow-none"/>
+        <AutoComplete options={options} onSearch={handleSearch} onSelect={handleSelect} className="!mb-6" >
+        <Input prefix={<SearchOutlined />} placeholder="Search..."
+        className="!bg-lightGray !rounded-full !border-0 "
+        />
+        </AutoComplete>
         <div className="mb-6 text-sm">
           <h3 className="font-semibold mb-3 font-oswald">Tasks</h3>
           <ul className="space-y-3 justify-end space-x-4">                    {/* for space between children */}
@@ -62,8 +120,14 @@ const SidebarMenu = () => {
       </div>
 
       <div className="space-y-3 mt-12 text-black/70">
-        <div className="flex gap-2"><RiMenu5Fill /> Settings</div>
-        <div className="flex gap-2"><FiLogOut /> Sign Out</div>
+        <Dropdown menu={{ items: settingsMenu }} placement="topRight" trigger={['hover']}>
+          <div className="flex gap-2 cursor-pointer items-center">
+            <RiMenu5Fill /> Settings
+          </div>
+        </Dropdown>
+
+        {contextHolder}
+        <div className="flex gap-2 cursor-pointer" onClick={info}><FiLogOut /> Sign Out</div>
       </div>
     </div>
   );

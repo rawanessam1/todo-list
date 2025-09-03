@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Checkbox, Input, Button } from "antd";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { FiXOctagon } from "react-icons/fi";
 
-function TaskColumn({ title }) {
-  const [tasks, setTasks] = useState([]); {/*  tasks is to save tasks, setTasks is to change tasks data */}
+function TaskColumn({ title, userId  }) {
+
+  const storageKey = `tasks_${userId}_${title}`;
+  const [tasks, setTasks] = useState(() => {      // tasks is to save tasks, setTasks is to change tasks data
+    const savedTasks = localStorage.getItem(storageKey);
+    return savedTasks ? JSON.parse(savedTasks) : [];    // parse -> from string to array. It means law fe data turn it to array w gebha fe tasks.
+  });
+
+  useEffect(() => {    // to change tasks in localStorage each time we change it
+    localStorage.setItem(storageKey, JSON.stringify(tasks));   // stringify -> from array to string
+  }, [tasks, storageKey]);
 
   return (
     <div className="flex-1 m-2.5 p-8 border border-black/60 rounded-4xl">
@@ -33,13 +42,13 @@ function TaskColumn({ title }) {
             <Input
               defaultValue={task.text}
               autoFocus
-              onBlur={(e) => {
-                const newTasks = [...tasks];
-                newTasks[i].text = e.target.value;
+              onBlur={(e) => {    /* when leaving the input field (adoos 3ala mkan tany fe el screen) */
+                const newTasks = [...tasks];       /* copy current list */
+                newTasks[i].text = e.target.value;   /* save the input data we wrote */
                 newTasks[i].editing = false;
-                setTasks(newTasks);
+                setTasks(newTasks);      /* update state */
               }}
-              onPressEnter={(e) => {
+              onPressEnter={(e) => {  /* when clicking enter */
                 const newTasks = [...tasks];
                 newTasks[i].text = e.target.value;
                 newTasks[i].editing = false;
@@ -47,9 +56,9 @@ function TaskColumn({ title }) {
               }}
               className="!border-none !shadow-none !focus:border-none"
             />
-          ) : (
+          ) : ( 
             <span
-              onClick={() => {
+              onClick={() => {     /* when clicking on the input data to edit it */
                 const newTasks = [...tasks];
                 newTasks[i].editing = true;
                 setTasks(newTasks);
@@ -76,3 +85,21 @@ function TaskColumn({ title }) {
   );
 }
 export default TaskColumn;
+
+
+/*
+========== how it worksss??? ==========
+1. we have useState tasks that contain the list of tasks AND settasks function to call it when changing state,
+each time we call settasks it rerenders the full code, 
+and at first the tasks [] is empty SOOO? map won't work.
+
+2. if we clicked on add new task a new object is made for the new task and added to the list,
+SOOO? map now will work on it to give it input, checkbox and delete button.
+
+3. if new task is added b2a ?
+a new obj is made for it and added to the list
+and rerender happens to save current + add new .
+
+4. if clicked on check button we call settasks to rerender the full list with the new changes.
+same for remove button ... same for editing the input data tmam ? tmam.
+*/
