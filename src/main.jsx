@@ -11,9 +11,9 @@ import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Today from "./pages/Today.jsx";
 import Upcoming from "./pages/Upcoming.jsx";
 import Calender from "./pages/Calender.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
-const root = document.getElementById("root");
-ReactDOM.createRoot(root).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
    <StrictMode>
     <BrowserRouter>
       <Routes>
@@ -26,6 +26,8 @@ ReactDOM.createRoot(root).render(
         <Route path="/today" element={<Today />} />
         <Route path="/upcoming" element={<Upcoming />} />
         <Route path="/calendar" element={<Calender />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

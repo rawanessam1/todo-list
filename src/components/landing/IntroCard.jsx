@@ -13,8 +13,8 @@ function IntroCard() {
             <p>A todo list app is a digital task management tool designed to help users organize and prioritize
                 their daily activities and responsibilities.</p>
         </div>
-        <Button className="font-Inder !rounded-lg !border-none !bg-green !w-96 !h-10" type="ghost" onClick={() => { navigate("/dashboard"); }}> Get Started</Button>
-        <p className="font-Inder text-center p-6">Already have an account? <Link to="/signin">Sign in</Link></p>
+        <Button className="font-Inder !rounded-lg !border-none !bg-green !w-96 !h-10 transition duration-300 transform hover:-translate-y-0.5" type="ghost" onClick={() => { navigate("/dashboard"); }}> Get Started</Button>
+        <p className="font-Inder text-center p-6">Already have an account? <Link to="/signin" className='hover:underline'>Sign in</Link></p>
         </div>
     )
 }
