@@ -9,9 +9,9 @@ function Upcoming() {
       <MainLayout bgColor="bg-white">
       <div className="w-full">
         <h1 className="font-oswald text-4xl">Upcoming</h1>
-        <div className="flex flex-col gap-6 w-full">
+        <div className="flex flex-col gap-0 lg:gap-6 w-full">
           <TaskColumn title="Today" userId={loggedInUser}/>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col lg:flex-row justify-between">
             <TaskColumn title="Tomorrow" className="flex-1" userId={loggedInUser}/>
             <TaskColumn title="This Week" className="flex-1" userId={loggedInUser}/>
           </div>

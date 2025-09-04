@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Input, message, AutoComplete, Dropdown } from "antd";
+import { Input, message, Button, AutoComplete, Dropdown, Drawer } from "antd";
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
@@ -57,9 +57,12 @@ const SidebarMenu = () => {
   }, 3000);
   };
 
+  /* to make it responsive on mobile */
+  const [openDrawer, setOpenDrawer] = useState(false);
 
-  return (
-    <div className="w-80 bg-lightGray2 shadow-md rounded-40 p-12 flex flex-col justify-between">
+
+  const SideBarContent = (
+    <div className="w-80 bg-lightGray2 shadow-md rounded-40 p-10 flex flex-col justify-between">
       <div>
         <p className="font-bold">
         {username && (
@@ -69,7 +72,7 @@ const SidebarMenu = () => {
         )}
         </p>
         <div className="flex justify-between items-center">
-          <h2 className="text-4xl font-bold font-oswald">Menu</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold font-oswald">Menu</h2>
           <MenuOutlined className="text-xl" />
         </div>
         <AutoComplete options={options} onSearch={handleSearch} onSelect={handleSelect} className="!mb-6" >
@@ -130,6 +133,34 @@ const SidebarMenu = () => {
         <div className="flex gap-2 cursor-pointer" onClick={info}><FiLogOut /> Sign Out</div>
       </div>
     </div>
+  );
+
+    return (
+    <>
+      {/* Desktop */}
+      <div className="hidden lg:block">{SideBarContent}</div>
+
+      {/* Mobile */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <Button
+          type="primary"
+          className="!bg-green !text-black"
+          onClick={() => setOpenDrawer(true)}
+          icon={<MenuOutlined />}
+        />
+      </div>
+
+      {/* Mobile Drawer */}
+      <Drawer
+        placement="left"
+        closable={true}
+        onClose={() => setOpenDrawer(false)}
+        open={openDrawer}
+        width={370}
+      >
+        {SideBarContent}
+      </Drawer>
+    </>
   );
 };
 

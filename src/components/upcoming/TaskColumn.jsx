@@ -16,7 +16,7 @@ function TaskColumn({ title, userId  }) {
   }, [tasks, storageKey]);
 
   return (
-    <div className="flex-1 m-2.5 p-8 border border-black/60 rounded-4xl">
+    <div className="flex-1 m-2.5 p-4 lg:p-8 border border-black/60 rounded-4xl">
       <h3 className="font-oswald text-3xl">{title}</h3>
       <Button
         type="primary"

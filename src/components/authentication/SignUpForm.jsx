@@ -39,7 +39,7 @@ const AuthForm = ({ onRegisterSuccess, setAlertMsg }) => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <h1 className='font-oswald font-extrabold text-4xl pb-3'>Sign Up</h1>
+      <h1 className='font-oswald font-extrabold text-3xl lg:text-4xl pb-3'>Sign Up</h1>
 
       <Form.Item
         name="firstname"
@@ -92,7 +92,7 @@ const AuthForm = ({ onRegisterSuccess, setAlertMsg }) => {
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" type="ghost" className="!font-Inder !rounded-lg !border-none !bg-green !hover:text-black w-full max-w-form">
+        <Button htmlType="submit" type="ghost" className="!font-Inder !rounded-lg !border-none !bg-green !hover:text-black w-full max-w-form transition duration-300 transform hover:-translate-y-0.5">
           Sign Up
         </Button>
       </Form.Item>
