@@ -18,9 +18,9 @@ function SignIn() {
   const [alertMsg, setAlertMsg] = useState(null);
 
   return (
-  <div className="container mx-auto flex h-screen gap-8 pt-11 pb-11">
-      <div className="leftSide flex-1">
-          <img src={mainImage} alt="main image"className="w-full h-full rounded-40"/>
+  <div className="container mx-auto flex flex-col lg:flex-row h-screen gap-8 pt-6 pb-6 lg:pt-11 lg:pb-11">
+      <div className="leftSide flex-1 hidden lg:block">
+          <img src={mainImage} alt="main image"className="w-full h-full object-cover rounded-40"/>
         </div>
 
         <div className="rightSide shadow-xl rounded-40 bg-mainWhite flex flex-col items-center justify-center flex-1">
@@ -28,12 +28,12 @@ function SignIn() {
             <SignInForm setAlertMsg={setAlertMsg}
             />
           </div>
-          <div className="flex justify-between gap-24">
+          <div className="flex flex-col lg:flex-row justify-between gap-4 lg:gap-24">
             <Button className="!font-Inder !bg-lightGray !rounded-lg " type="ghost"><FcGoogle /> Google</Button>
             <Button className="!font-Inder !bg-lightGray !rounded-lg" type="ghost"><FaFacebook className="text-blue-800" /> Facebook</Button>
           </div>
           <p className="!font-Inder text-center p-6">
-              Don't have an account? <Link to="/signup">Sign up</Link>
+              Don't have an account? <Link to="/signup"className='hover:underline'>Sign up</Link>
           </p>
           {alertMsg && (
             <Alert
