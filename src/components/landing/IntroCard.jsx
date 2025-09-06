@@ -17,4 +17,4 @@ function IntroCard() {
         </div>
     )
 }
-export default IntroCard;
+export default IntroCard; 
