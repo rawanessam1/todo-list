@@ -23,7 +23,7 @@ const CalendarPage = () => {
             title: task.text,
             start: dayjs(task.date).toISOString(),
             allDay: false,
-            color: task.done ? "#b2ebf2" : "#f8d7da"
+            color: task.done ? "#34d399" : "#f87171", textColor: "#ffffff"
           });
 
         }

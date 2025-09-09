@@ -6,7 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 const Calendar = ({ events }) => {
 
   return (
-    <div className="h-[600px] overflow-auto">
+    <div className="w-full min-h-[400px] md:min-h-[600px] lg:min-h-[700px] overflow-auto p-4">
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
@@ -15,11 +15,15 @@ const Calendar = ({ events }) => {
         center: "title",
         right: "dayGridMonth,timeGridWeek,timeGridDay",
       }}
-      slotMinTime="00:00:00" 
+      slotMinTime="00:00:00"
       slotMaxTime="24:00:00"
-      slotDuration="00:30:00"
+      slotDuration="01:00:00"
+      allDaySlot={false} 
       events={events}
       height="100%"
+      contentHeight="auto"
+      aspectRatio={1.5}
+      className="w-full min-w-[300px]"
     />
     </div>
   );
