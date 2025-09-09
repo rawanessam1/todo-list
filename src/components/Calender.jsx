@@ -4,25 +4,24 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 const Calendar = ({ events }) => {
-  const handleDateClick = (info) => {
-    alert(`Clicked on date: ${info.dateStr}`);
-  };
 
   return (
+    <div className="h-[600px] overflow-auto">
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-      initialView="timeGridDay"
+      initialView="dayGridMonth"
       headerToolbar={{
         left: "prev,next today",
         center: "title",
         right: "dayGridMonth,timeGridWeek,timeGridDay",
       }}
-      slotMinTime="09:00:00"
-      slotMaxTime="18:00:00"
-      dateClick={handleDateClick}
+      slotMinTime="00:00:00" 
+      slotMaxTime="24:00:00"
+      slotDuration="00:30:00"
       events={events}
-      height="auto"
+      height="100%"
     />
+    </div>
   );
 };
 

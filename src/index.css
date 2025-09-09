@@ -11,3 +11,11 @@
   --max-width-form: 301px;
 }
 
+/* parent wrapper class */
+.green-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+}
+.green-checkbox .ant-checkbox:hover .ant-checkbox-inner {
+  border-color: var(--color-green) !important; 
+}

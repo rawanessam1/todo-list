@@ -1,47 +1,51 @@
-import { Button } from "antd";
-import MainLayout from "../components/layout/MainLayout"; 
+import { useState, useEffect } from "react";
+import MainLayout from "../components/layout/MainLayout";
 import Calendar from "../components/Calender";
+import dayjs from "dayjs";
 
-const Calender = () => {
-  const events = [
-    {
-      title: "Database create for company",
-      start: "2025-09-17T09:00:00",
-      end: "2025-09-17T12:00:00",
-      color: "#d4f1f4",
-    },
-    {
-      title: "Meet work team",
-      start: "2025-09-17T11:00:00",
-      end: "2025-09-17T12:30:00",
-      color: "#b2ebf2",
-    },
-    {
-      title: "Client presentation",
-      start: "2025-09-17T15:00:00",
-      end: "2025-09-17T16:00:00",
-      color: "#f8d7da",
-    },
-  ];
+const USER_ID = localStorage.getItem("username") || "user1";
 
-  const today = new Date();
-  const day = today.getDate();
-  const year = today.getFullYear();
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const month = months[today.getMonth()];
-  const formattedDate = `${day} ${month} ${year}`;
+const CalendarPage = () => {
+  const [events, setEvents] = useState([]);
+
+  const fetchEvents = () => {
+    const prefix = `tasks_${USER_ID}_`;
+    const allEvents = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key.startsWith(prefix)) continue;
+
+      const tasks = JSON.parse(localStorage.getItem(key) || "[]");
+      tasks.forEach(task => {
+        if (task.text && task.date) {
+           allEvents.push({
+            title: task.text,
+            start: dayjs(task.date).toISOString(),
+            allDay: false,
+            color: task.done ? "#b2ebf2" : "#f8d7da"
+          });
+
+        }
+      });
+    }
+
+    setEvents(allEvents);
+  };
+
+  useEffect(() => {
+    fetchEvents();
+
+    const handleTasksUpdate = () => fetchEvents();
+    window.addEventListener("tasksUpdated", handleTasksUpdate);
+
+    return () => window.removeEventListener("tasksUpdated", handleTasksUpdate);
+  }, []);
 
   return (
     <MainLayout bgColor="bg-white">
-      <div className="flex justify-center items-center h-full">
-        <div className="flex flex-col justify-center gap-14 w-full">
-          <div className="CalenderHeader flex flex-row justify-between">
-            <h1 className="text-3xl font-bold mb-6">{formattedDate}</h1>
-            <Button htmlType="submit" type="ghost" className="!rounded-lg !border-black">Add Event</Button>          
-          </div>
+      <div className="flex justify-center items-center h-full p-10">
+        <div className="flex flex-col gap-14 w-full">
           <Calendar events={events} />
         </div>
       </div>
@@ -49,5 +53,4 @@ const Calender = () => {
   );
 };
 
-export default Calender;
-
+export default CalendarPage;
