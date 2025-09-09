@@ -1,18 +1,34 @@
 import { useState, useEffect } from "react";
-import { Checkbox, Input, Button } from "antd";
+import { Checkbox, Input, Button, DatePicker } from "antd";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { FiXOctagon } from "react-icons/fi";
+import dayjs from "dayjs";
 
-function TaskColumn({ title, userId  }) {
-
+function TaskColumn({ title, userId }) {
   const storageKey = `tasks_${userId}_${title}`;
-  const [tasks, setTasks] = useState(() => {      // tasks is to save tasks, setTasks is to change tasks data
+
+  const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem(storageKey);
-    return savedTasks ? JSON.parse(savedTasks) : [];    // parse -> from string to array. It means law fe data turn it to array w gebha fe tasks.
+    if (savedTasks) {
+      return JSON.parse(savedTasks).map(task => ({
+        ...task,
+        date: task.date ? dayjs(task.date) : null
+      }));
+    }
+    return [];
   });
 
-  useEffect(() => {    // to change tasks in localStorage each time we change it
-    localStorage.setItem(storageKey, JSON.stringify(tasks));   // stringify -> from array to string
+  useEffect(() => {
+    const tasksToStore = tasks.map(task => ({
+      ...task,
+      date: task.date ? task.date.toISOString() : null
+    }));
+    localStorage.setItem(storageKey, JSON.stringify(tasksToStore));
+
+    // Notify Calendar page
+    window.dispatchEvent(new CustomEvent("tasksUpdated", {
+      detail: { key: storageKey }
+    }));
   }, [tasks, storageKey]);
 
   return (
@@ -20,86 +36,80 @@ function TaskColumn({ title, userId  }) {
       <h3 className="font-oswald text-3xl">{title}</h3>
       <Button
         type="primary"
-        onClick={() => setTasks([...tasks, { text: "", done: false, editing: true }])} /* ...tasks saves current tasks and add new one to them */
-        className="!bg-white !text-black !w-full !flex !border !border-black/40 !rounded-xl !justify-start" 
+        onClick={() => setTasks([...tasks, { text: "", done: false, editing: true, date: dayjs().hour(9).minute(0) }])}
+        className="!bg-white !text-black !w-full !flex !border !border-black/40 !rounded-xl !justify-start"
       >
         <IoAddCircleOutline className="text-xl"/> Add new task
       </Button>
 
       {tasks.map((task, i) => (
         <div key={i} className="flex items-center mb-2 border-b border-black/40 p-1">
+          <div className="green-checkbox">
           <Checkbox
             checked={task.done}
             onChange={() => {
-              const newTasks = [...tasks]; /* make new list of current tasks */
-              newTasks[i].done = !newTasks[i].done; /* change the selected task from done to undone or undone to done */
+              const newTasks = [...tasks];
+              newTasks[i].done = !newTasks[i].done;
               setTasks(newTasks);
             }}
             className="!mr-2"
           />
+          </div>
 
           {task.editing ? (
             <Input
               defaultValue={task.text}
               autoFocus
-              onBlur={(e) => {    /* when leaving the input field (adoos 3ala mkan tany fe el screen) */
-                const newTasks = [...tasks];       /* copy current list */
-                newTasks[i].text = e.target.value;   /* save the input data we wrote */
-                newTasks[i].editing = false;
-                setTasks(newTasks);      /* update state */
-              }}
-              onPressEnter={(e) => {  /* when clicking enter */
+              onBlur={(e) => {
                 const newTasks = [...tasks];
                 newTasks[i].text = e.target.value;
                 newTasks[i].editing = false;
                 setTasks(newTasks);
               }}
-              className="!border-none !shadow-none !focus:border-none"
+              onPressEnter={(e) => {
+                const newTasks = [...tasks];
+                newTasks[i].text = e.target.value;
+                newTasks[i].editing = false;
+                setTasks(newTasks);
+              }}
+              className="!border-none !shadow-none !focus:border-none flex-1"
             />
-          ) : ( 
+          ) : (
             <span
-              onClick={() => {     /* when clicking on the input data to edit it */
+              onClick={() => {
                 const newTasks = [...tasks];
                 newTasks[i].editing = true;
                 setTasks(newTasks);
               }}
-              className={`ml-2 flex-1 cursor-pointer ${task.done ? "line-through" : "no-underline"}`}
+              className={`ml-2 flex-1 cursor-pointer ${task.done ? "line-through" : ""}`}
             >
-              {task.text}
+              {task.text || "(no title)"}
             </span>
           )}
 
-          <Button
-            danger
-            onClick={() => {
-              const newTasks = tasks.filter((_, index) => index !== i);  /* make new list without what we just clicked on */
+          <DatePicker
+            value={task.date}
+            onChange={(date) => {
+              const newTasks = [...tasks];
+              newTasks[i].date = date;
               setTasks(newTasks);
             }}
+            className="mt-2"
+            showTime={{ format: 'HH:mm' }}
+            format="YYYY-MM-DD HH:mm"
+          />
+
+          <Button
+            danger
+            onClick={() => setTasks(tasks.filter((_, index) => index !== i))}
             className="!shadow-none !font-bold !border-0 !p-0 !text-xl !ml-2"
           >
-           <FiXOctagon />
+            <FiXOctagon />
           </Button>
         </div>
       ))}
     </div>
   );
 }
+
 export default TaskColumn;
-
-
-/*
-========== how it worksss??? ==========
-1. we have useState tasks that contain the list of tasks AND settasks function to call it when changing state,
-each time we call settasks it rerenders the full code, 
-and at first the tasks [] is empty SOOO? map won't work.
-
-2. if we clicked on add new task a new object is made for the new task and added to the list,
-SOOO? map now will work on it to give it input, checkbox and delete button.
-
-3. if new task is added b2a ?
-a new obj is made for it and added to the list
-and rerender happens to save current + add new .
-
-4. if clicked on check button we call settasks to rerender the full list with the new changes.
-same for remove button ... same for editing the input data tmam ? tmam.
-*/
