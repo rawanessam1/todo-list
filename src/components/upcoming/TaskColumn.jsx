@@ -43,7 +43,7 @@ function TaskColumn({ title, userId }) {
       </Button>
 
       {tasks.map((task, i) => (
-        <div key={i} className="flex items-center mb-2 border-b border-black/40 p-1">
+        <div key={i} className="flex items-center gap-2 mb-2 border-b border-black/40 p-2">
           <div className="green-checkbox">
           <Checkbox
             checked={task.done}
@@ -87,25 +87,25 @@ function TaskColumn({ title, userId }) {
             </span>
           )}
 
-          <DatePicker
+            <DatePicker
             value={task.date}
             onChange={(date) => {
               const newTasks = [...tasks];
               newTasks[i].date = date;
               setTasks(newTasks);
             }}
-            className="mt-2"
+            className="mt-2 sm:mt-0 max-w-28 lg:max-w-40"
             showTime={{ format: 'HH:mm' }}
             format="YYYY-MM-DD HH:mm"
-          />
-
-          <Button
+            />
+            <Button
             danger
             onClick={() => setTasks(tasks.filter((_, index) => index !== i))}
-            className="!shadow-none !font-bold !border-0 !p-0 !text-xl !ml-2"
-          >
-            <FiXOctagon />
-          </Button>
+            className="!shadow-none !font-bold !border-0 !p-0 !text-xl sm:ml-2 mt-2 sm:mt-0"
+            >
+              <FiXOctagon />
+            </Button>
+
         </div>
       ))}
     </div>

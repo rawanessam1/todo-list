@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Input, message, Button, AutoComplete, Dropdown, Drawer } from "antd";
+import { Input, message, Button, AutoComplete, Dropdown, Drawer, Modal } from "antd";
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
@@ -47,18 +47,33 @@ const SidebarMenu = () => {
   }, []);
 
   /* this is for removing hello, user when clicking sign out */
-  const [messageApi, contextHolder] = message.useMessage();
-  const info = () => {
-    messageApi.success('Signing out...');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => setIsModalOpen(true);
+  const handleOk = () => {
+    message.success("Signing out...");
+    setIsModalOpen(false);
     setTimeout(() => {
-    localStorage.removeItem("username");
-    setUsername("");
-    navigate("/signin", { replace: true });
-  }, 3000);
+      localStorage.removeItem("username");
+      setUsername("");
+      navigate("/signin", { replace: true });
+    }, 2000);
   };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
   /* to make it responsive on mobile */
   const [openDrawer, setOpenDrawer] = useState(false);
+
+   /* for counting tasks upcoming & today */
+  function getTaskCount(userId, title) {
+    const key = `tasks_${userId}_${title}`;
+    const tasks = localStorage.getItem(key);
+    if (!tasks)
+      return 0;
+    return JSON.parse(tasks).length;
+}
 
 
   const SideBarContent = (
@@ -86,13 +101,17 @@ const SidebarMenu = () => {
             <li className="flex justify-between pl-6">
               <Link to="/upcoming" className="flex justify-between w-full">
               <div className="flex gap-2"> <MdKeyboardDoubleArrowRight /> <span>Upcoming</span></div>
-              <span className="bg-lightGray text-xs p-2 rounded-full">15+</span>
+              <span className="bg-lightGray text-xs p-2 rounded-full">
+                {getTaskCount(username, "Today") + getTaskCount(username, "Tomorrow") + getTaskCount(username, "This Week")}
+              </span>
              </Link>
             </li>
             <li className="flex justify-between pl-6">
               <Link to="/today" className="flex justify-between w-full">
               <div className="flex gap-2"><TfiMenuAlt /><span>Today</span></div>
-              <span className="bg-lightGray text-xs p-2 rounded-full">8</span>
+              <span className="bg-lightGray text-xs p-2 rounded-full">
+                {getTaskCount(username, "Today")}
+              </span>
              </Link>
             </li>
             <li className="pl-6">
@@ -129,8 +148,21 @@ const SidebarMenu = () => {
           </div>
         </Dropdown>
 
-        {contextHolder}
-        <div className="flex gap-2 cursor-pointer" onClick={info}><FiLogOut /> Sign Out</div>
+      <div className="flex gap-2 cursor-pointer" onClick={showModal}>
+          <FiLogOut /> Sign Out
+        </div>
+        <Modal
+          title="Confirm Sign Out"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          okText="Yes, Sign Out"
+          cancelText="Cancel"
+          okButtonProps={{ className: "!bg-green hover:!bg-green/80" }}
+          cancelButtonProps={{ className: "!border-green hover:!text-green" }}
+        >
+          <p>Are you sure you want to sign out?</p>
+        </Modal>
       </div>
     </div>
   );
