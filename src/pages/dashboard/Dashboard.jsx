@@ -28,7 +28,8 @@ const Dashboard = () => {
         </p>
         <Button
           type="primary"
-          className="!bg-green !px-14 !py-4.5 !rounded-xl !font-oswald !text-black !text-2xl"
+          className="!bg-green !px-14 !py-4.5 !rounded-xl !font-oswald !text-black !text-2xl transition duration-300 transform hover:-translate-y-0.5"
+          onClick={() => navigate("/upcoming")}
         >
           Go to tasks
         </Button>
