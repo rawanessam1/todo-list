@@ -55,7 +55,7 @@ A modern **Todo List web application** built with **React**, **React Router**, *
 
 Check out the live demo of the Todo List application:  
 
-[🌐 Live Demo]([https://your-demo-link-here.com](https://todo-list-git-main-rawans-projects-8c6a6375.vercel.app))  
+[🌐 Live Demo](https://todo-list-git-main-rawans-projects-8c6a6375.vercel.app)  
 
 ---
 
